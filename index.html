@@ -1,0 +1,117 @@
+<!-- ANGKA TARUNG 6 DIGIT -->
+<div class="card">
+
+    <div class="title">
+        ANGKA TARUNG 6 DIGIT
+    </div>
+
+    <div class="box">
+        <div class="nama">
+            HASIL ANALISIS
+        </div>
+
+        <div class="angka" id="tarung6">
+            -
+        </div>
+    </div>
+
+</div>
+
+
+<!-- BBFS 6 DIGIT -->
+<div class="card">
+
+    <div class="title">
+        BBFS 6 DIGIT
+    </div>
+
+    <div class="box">
+        <div class="nama">
+            HASIL ANALISIS
+        </div>
+
+        <div class="angka" id="bbfs6">
+            -
+        </div>
+    </div>
+
+  </div>let digit =
+    [...new Set(semua.split(""))];/* ============================
+   ANGKA TARUNG 6 DIGIT
+============================ */
+
+let frekuensi = {};
+
+semua.split("").forEach(function(angka){
+
+    if(!frekuensi[angka]){
+        frekuensi[angka] = 0;
+    }
+
+    frekuensi[angka]++;
+
+});
+
+
+/*
+   Urutkan digit berdasarkan
+   frekuensi kemunculan.
+*/
+
+let ranking =
+    Object.keys(frekuensi)
+    .sort(function(a,b){
+
+        if(frekuensi[b] !== frekuensi[a]){
+            return frekuensi[b] - frekuensi[a];
+        }
+
+        return Number(a) - Number(b);
+
+    });
+
+
+/*
+   Pastikan semua digit 0-9
+   tetap tersedia sebagai cadangan.
+*/
+
+for(let i=0;i<=9;i++){
+
+    if(!ranking.includes(String(i))){
+        ranking.push(String(i));
+    }
+
+}
+
+
+/* 6 digit pertama */
+
+let tarung6 =
+    ranking.slice(0,6).join("");
+
+
+document.getElementById("tarung6").innerText =
+    tarung6;
+
+
+/* ============================
+   BBFS 6 DIGIT
+============================ */
+
+/*
+   BBFS menggunakan 6 digit teratas
+   berdasarkan frekuensi hasil rumus.
+*/
+
+let bbfs6 =
+    ranking
+    .slice(0,6)
+    .sort(function(a,b){
+        return Number(a)-Number(b);
+    })
+    .join("");
+
+
+document.getElementById("bbfs6").innerText =
+    bbfs6;
